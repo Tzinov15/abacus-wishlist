@@ -11,12 +11,12 @@ export const ItemsList = styled.ul`
   flex-direction: column;
   width: auto;
   padding: 0;
-  max-height: calc(100vh - 12rem);
+  max-height: calc(100vh - 15rem);
   overflow-y: scroll;
 `;
 
 export const BoldColoredText = styled.span`
-  font-size: 1rem;
+  font-size: 1.3rem;
   font-family: ArunaRegular;
   color: var(--primary-fg-color);
 `;
@@ -86,7 +86,7 @@ export const AddItemButton = styled.button`
 
 export const PriceTotalText = styled.b`
   font-size: 2rem;
-  font-family: ArunaRegular;
+  font-family: ArunaThin;
   color: var(--primary-fg-color);
 
   span {

@@ -75,7 +75,7 @@ function App() {
               <ItemRowContainer key={item.name}>
                 <ItemRow key={item.name}>
                   <p>{item.name}</p>
-                  <BoldColoredText>${item.price}</BoldColoredText>
+                  <BoldColoredText>${item.price.toLocaleString()}</BoldColoredText>
                 </ItemRow>
                 <ItemRow>
                   <i>{item.reason}</i>
