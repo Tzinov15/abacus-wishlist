@@ -3,12 +3,16 @@ import "./App.css";
 import {
   ActionButtons,
   AddItemButton,
+  BoldColoredText,
   Container,
   Footer,
   Form,
   ItemRow,
   ItemRowContainer,
   ItemsList,
+  ItemsTotalText,
+  LargeButton,
+  PriceTotalText,
 } from "./Components";
 
 interface Item {
@@ -62,20 +66,22 @@ function App() {
   if (page === "list") {
     return (
       <Container>
+        <PriceTotalText>Impulse Conquer List</PriceTotalText>
         <ItemsList>
-          {items.map((item) => {
+          {[...items, ...items, ...items].map((item) => {
             return (
               <ItemRowContainer key={item.name}>
                 <ItemRow key={item.name}>
-                  {item.name} - ${item.price}
+                  <p>{item.name}</p>
+                  <BoldColoredText>${item.price}</BoldColoredText>
+                </ItemRow>
+                <ItemRow>
+                  <i>{item.reason}</i>
                   <ActionButtons>
                     <button onClick={() => deleteItem(item.name)}> 🗑</button>
                     <button onClick={() => editItem(item)}> ✏️</button>
                   </ActionButtons>
                 </ItemRow>
-                <p>
-                  <i>{item.reason}</i>
-                </p>
               </ItemRowContainer>
             );
           })}
@@ -88,14 +94,17 @@ function App() {
           add item
         </AddItemButton>
         <Footer>
-          <b>{items.length} items</b>
-          <b>
+          <ItemsTotalText>
+            {items.length} <span>items resisted</span>{" "}
+          </ItemsTotalText>
+          <PriceTotalText>
             $
             {items
               .map((item) => item.price)
               .reduce((acc, curr) => acc + curr, 0)
               .toLocaleString()}
-          </b>
+            <span>saved</span>
+          </PriceTotalText>
         </Footer>
       </Container>
     );
@@ -126,15 +135,15 @@ function App() {
         <input name="price" type="number" />
         <label htmlFor="reason">reason</label>
         <textarea name="reason" />
-        <button>add item</button>
-        <button
+        <LargeButton>add item</LargeButton>
+        <LargeButton
           type="button"
           onClick={() => {
             setPage("list");
           }}
         >
           cancel
-        </button>
+        </LargeButton>
       </Form>
     );
   }
