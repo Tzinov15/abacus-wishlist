@@ -26,6 +26,8 @@ function App() {
 
   const [itemToEdit, setItemToEdit] = useState<Item>();
 
+  const [valueToBePasted, setValueToBePasted] = useState<string>();
+
   const [page, setPage] = useState<"list" | "add" | "edit">("list");
 
   useEffect(() => {
@@ -68,7 +70,7 @@ function App() {
       <Container>
         <PriceTotalText>Impulse Conquer List</PriceTotalText>
         <ItemsList>
-          {[...items, ...items, ...items].map((item) => {
+          {items.map((item) => {
             return (
               <ItemRowContainer key={item.name}>
                 <ItemRow key={item.name}>
@@ -144,6 +146,31 @@ function App() {
         >
           cancel
         </LargeButton>
+        <LargeButton
+          type="button"
+          onClick={() => {
+            const jsonString = JSON.stringify(items);
+            window.navigator.clipboard.writeText(jsonString);
+          }}
+        >
+          export all items to json in clipboard
+        </LargeButton>
+        <form>
+          <textarea
+            value={valueToBePasted}
+            onChange={(e) => setValueToBePasted(e.currentTarget.value)}
+          ></textarea>
+          <LargeButton
+            type="button"
+            onClick={() => {
+              const enteredItems = JSON.parse(valueToBePasted || "");
+              setItems(enteredItems);
+              localStorage.setItem("ABACUS_WISHLIST_ITEMS", JSON.stringify(enteredItems));
+            }}
+          >
+            import items from above text area
+          </LargeButton>
+        </form>
       </Form>
     );
   }
